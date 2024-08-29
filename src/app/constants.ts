@@ -1,0 +1,1 @@
+export const MockApiUrl = "https://freeapi.gerasim.in/api/Jira/";
