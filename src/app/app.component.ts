@@ -1,32 +1,43 @@
 import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { HttpClient } from "@angular/common/http";
 import { MockApiUrl } from "./constants";
+import { BoardComponent } from "./board/board.component";
+import { takeUntil } from "rxjs";
 
 @Component({
   standalone: true,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule, BoardComponent],
 })
 export class AppComponent {
+
+  constructor(private http:HttpClient) {
+
+  }
+  title = "Task manager"
   componentTitle = "Task manager";
 
   async ngOnInit() {
-    this.allTasks = await this.preloadTasks();
+    const allTasks = await this.preloadTasks();
+    console.log('00-ON-INIT->', allTasks)
+    if (this.allTasks.length === 4) {
+      //this.allTasks = allTasks
+    }
   }
 
   filter: "all" | "In Progress" | "Done" | "To Do" = "all";
 
   private preloadTasks = async () => {
-    const mock_tasks = await fetch(`${MockApiUrl}GetAllTickets`, {
-        method: 'GET',
-        headers: { "Content-Type": "application/json" },
+    // const mock_tasks = await fetch(`${MockApiUrl}GetAllTickets`, {
+    //     method: 'GET',
+    //     headers: { "Content-Type": "text/plain" },
+    // })
+    this.http.get(`${MockApiUrl}GetAllTickets`).subscribe(config => {
+      console.log('00-FETCH->', config)
     })
-    //notify
-    const res =  await mock_tasks.json();
-    console.log("00-FETCH->", res);
-    return res
   }
 
   allTasks = [
