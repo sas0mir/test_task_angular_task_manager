@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { iTask } from '../task';
+import { HttpClient } from '@angular/common/http';
+import { ITask } from '../constants';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-board',
@@ -10,22 +12,34 @@ import { iTask } from '../task';
 })
 export class BoardComponent {
 
-  @Input() tasks: any[] | undefined;
+  tasks: any[] = [];
 
-  @Output() newTaskEvent = new EventEmitter<iTask>()
+  constructor(private http: HttpClient, private store: Store<any>) {
+
+  }
+
+  private showModal = false;
 
   ngOnChanges() {
 
   }
   ngOnInit() {
-
+    this.preloadTasks();
+    this.store.select('taskStore').subscribe(res => {
+      this.tasks = res.tasks
+    })
   }
 
   openModal() {
-    
+    this.showModal = !this.showModal;
   }
 
-  addNewTask(value: iTask) {
-    this.newTaskEvent.emit(value)
+  private preloadTasks = async () => {
+    
+    this.http.get(`https://freetestapi.com/api/v1/todos`, {
+      //"mode": 'no-cors'
+    }).subscribe(config => {
+      console.log('00-FETCH->', config)
+    })
   }
 }
