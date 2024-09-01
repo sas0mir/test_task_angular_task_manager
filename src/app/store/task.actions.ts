@@ -1,4 +1,7 @@
 import { createAction, props } from "@ngrx/store";
+import { ITask } from "../constants";
 
-export const addToBoard = createAction('[Item] Add To Board', props<{task: any}>());
-export const removeFromBoard = createAction('[Item] Remove From Board', props<{task: any}>());
+export const initTasks = createAction('[Task Component] init', props<{tasks: ITask[]}>())
+export const addTask = createAction('[Task Component] add', props<{task: ITask}>());
+export const updateTask = createAction('[Task Component] update', props<{task: ITask}>());
+export const removeTask = createAction('[Task Component] remove', props<{task: any}>());

@@ -1,26 +1,28 @@
 <div class="container con">
-    <div class="row pb-3 pt-3">
-        <div class="col-12 text-center">
-            <h1>Task board</h1>
-            <button type="button" (click)="openModal()">Add task</button>
+    <ng-template #view>
+        <div class="row pb-3 pt-3">
+            <div class="col-12 text-center">
+                <h1>Task board</h1>
+                <button type="button" (click)="openModalTemplate(view)">Add task</button>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12 text-center">
-            <div class="kanban-board">
-                <div class="column">
-                    <div class="column-header">To Do</div>
-                    <div class="task">Task 1</div>
-                </div>
-                <div class="column">
-                    <div class="column-header">In Progress</div>
-                    <!-- <div class="task">Task 1</div> -->
-                </div>
-                <div class="column">
-                    <div class="column-header">Done</div>
-                    <!-- <div class="task">Task 1</div> -->
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="kanban-board">
+                    <div class="column">
+                        <div class="column-header">To Do</div>
+                        <div class="task">Task 1</div>
+                    </div>
+                    <div class="column">
+                        <div class="column-header">In Progress</div>
+                        <!-- <div class="task">Task 1</div> -->
+                    </div>
+                    <div class="column">
+                        <div class="column-header">Done</div>
+                        <!-- <div class="task">Task 1</div> -->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </ng-template>
 </div>

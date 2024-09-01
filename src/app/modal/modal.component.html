@@ -1,1 +1,8 @@
-<p>modal works!</p>
+<div class="modal-wrapper">
+    <section class="modal" #modal>
+        <p>MODAL CONTENT</p>
+        <ng-content></ng-content>
+    </section>
+
+    <div class="modal-overlay" #overlay (click)="onClose()"></div>
+</div>

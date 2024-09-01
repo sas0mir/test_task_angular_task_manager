@@ -10,7 +10,7 @@ import { taskReducer } from "./store/task.reducers";
     declarations: [],
     imports: [
         BrowserModule,
-        StoreModule.forRoot({taskStore: taskReducer})
+        StoreModule.forRoot({tasks: taskReducer})
     ],
     providers: [],
 })

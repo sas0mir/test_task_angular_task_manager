@@ -3,12 +3,14 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import { routes } from './app.routes';
-import { provideStore } from '@ngrx/store';
+import { provideStore, provideState } from '@ngrx/store';
+import { taskReducer } from './store/task.reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withFetch()),
+    provideHttpClient(),
     provideRouter(routes),
-    provideStore()
+    provideStore(),
+    provideState({name: 'tasks', reducer: taskReducer})
 ]
 };
