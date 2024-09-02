@@ -1,0 +1,30 @@
+.task-item-container {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    transition: all .2s ease-in-out;
+    .task-item-left {
+        h3 {
+            font-size: 12pt;
+        }
+        p {
+            font-size: 14pt;
+        }
+    }
+    .task-item-right {
+        p.text-red {
+            color: red;
+        }
+        p.text-green {
+            color: green;
+        }
+    }
+}
+.task-item-container:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}

@@ -2,10 +2,10 @@ export const MockApiUrl = "https://posthook-api.mock.beeceptor.com";
 
 export interface ITask {
     id: Number
-    title: String,
-    description: String,
-    status: String,
-    priority: String,
+    title: string,
+    description: string,
+    status: string,
+    priority: string,
     startDate: Date,
     endDate: Date
 }
@@ -15,7 +15,7 @@ export const hardcodedTasks: ITask[] = [
         id: 1,
         title: 'New feature',
         description: 'Add tasks grid',
-        status: 'in process',
+        status: 'in progress',
         priority: 'high',
         startDate: new Date(2024, 8, 22),
         endDate: new Date(2024, 9, 10)
@@ -42,7 +42,7 @@ export const hardcodedTasks: ITask[] = [
         id: 4,
         title: 'New feature',
         description: 'create modal',
-        status: 'in process',
+        status: 'in progress',
         priority: 'high',
         startDate: new Date(2024, 8, 22),
         endDate: new Date(2024, 9, 10)

@@ -1,34 +1,38 @@
-import { Component, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, inject, Input, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ITask, hardcodedTasks } from '../constants';
 import { Store } from '@ngrx/store';
-import { ModalComponent } from '../modal/modal.component';
-import { ModalService } from '../modal/modal.service';
-import { initTasks } from '../store/task.actions';
+import { initTasks, updateTask } from '../store/task.actions';
+import { DialogService } from '@ngneat/dialog';
+import { TaskFormComponent } from '../task-form/task-form.component';
+import { TaskItemComponent } from '../task-item/task-item.component';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [ModalComponent],
+  imports: [TaskItemComponent, NgFor, NgIf],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
 export class BoardComponent {
 
+  //viewContainer for modal window
   @ViewChild('view', {static: true, read: ViewContainerRef})
   vcr!: ViewContainerRef;
 
-  tasks: ITask[] = [];
+  private dialog = inject(DialogService)
+
+  @Input() tasks: ITask[] = [];
 
   constructor(
     private http: HttpClient,
     private store: Store<{tasks: any}>,
-    private modalService: ModalService
   ) {
 
   }
 
-  private showModal = false;
+  currentDragged: any;
 
   ngOnChanges() {
 
@@ -38,31 +42,23 @@ export class BoardComponent {
     this.store.dispatch(initTasks({tasks: hardcodedTasks}))
     //on init subscribe to tasks store
     this.store.select('tasks').subscribe(res => {
-      console.log('STORE-SUBSCRIBE->', res);
       this.tasks = res.tasks
     })
   }
 
-  openModalTemplate(view: TemplateRef<Element>) {
-    this.modalService.open(this.vcr, view, {
-      animations: {
-        modal: {
-          enter: 'enter-slide-down 0.8s',
-        },
-        overlay: {
-          enter: 'fade-in 0.8s',
-          leave: 'fade-out 0.3s forwards',
-        },
-      },
-      size: {
-        width: '40rem',
-      },
-    });
-  }
-
   openModal() {
-    this.showModal = !this.showModal;
-    
+    //open form for creating new task
+    const dialogRef = this.dialog.open(TaskFormComponent, {
+      data: {
+        id: 0,
+        title: 'new task',
+        description: '',
+        status: '',
+        priority: '',
+        startDate: new Date(),
+        endDate: new Date()
+      }
+    })
   }
 
   private preloadTasks = async () => {
@@ -76,5 +72,18 @@ export class BoardComponent {
       console.log('TASKS-API-RES->', res);
     })
 
+  }
+
+  //DragnDrop events
+  onDragStart(task: ITask) {
+    this.currentDragged = task
+  }
+
+  onDrop(event: any, status: string) {
+    this.store.dispatch(updateTask({task: {...this.currentDragged, status: status}}))
+  }
+
+  onDragOver(event: any) {
+    event.preventDefault();
   }
 }

@@ -1,1 +1,10 @@
-<p>task-item works!</p>
+<div class="task-item-container" (click)="openEditModal()">
+    <div class="task-item-left">
+        <h3>{{task.title}}</h3>
+        <p>{{task.description}}</p>
+    </div>
+    <div class="task-item-right">
+        <p class={{customClass}}>{{task.priority}}</p>
+        <p>{{task.endDate.toISOString().split('T')[0]}}</p>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+.task-form-container {
+    display: flex;
+    padding: 1em;
+    flex-direction: column;
+    justify-content: space-around;
+    .task-form-field {
+        display: flex;
+        justify-content: flex-start;
+        margin: 1em 0;
+        label {
+            margin-right: 1em;
+        }
+        input {
+            border: none;
+            border-bottom: 1px solid black;
+        }
+    }
+    .task-form-footer {
+        display: flex;
+        justify-content: space-around;
+        .task-form-btn {
+            width: 150px;
+            padding: 1em;
+            background-color: white;
+            transition: all .2s ease-in-out;
+        }
+        .task-form-btn:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+    }
+}

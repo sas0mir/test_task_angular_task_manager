@@ -23,3 +23,15 @@
     padding: 10px;
     margin-bottom: 10px;
 }
+.board-header {
+    .board-btn {
+        width: 150px;
+        padding: 1em;
+        background-color: white;
+        transition: all .2s ease-in-out;
+    }
+    .board-btn:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+}

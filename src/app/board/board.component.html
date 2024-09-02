@@ -1,28 +1,35 @@
 <div class="container con">
-    <ng-template #view>
-        <div class="row pb-3 pt-3">
-            <div class="col-12 text-center">
-                <h1>Task board</h1>
-                <button type="button" (click)="openModalTemplate(view)">Add task</button>
-            </div>
+    <div class="row pb-3 pt-3">
+        <div class="col-12 text-center board-header">
+            <h1>Task board</h1>
+            <button type="button" class="board-btn" (click)="openModal()">Add task</button>
         </div>
-        <div class="row">
-            <div class="col-12 text-center">
-                <div class="kanban-board">
-                    <div class="column">
-                        <div class="column-header">To Do</div>
-                        <div class="task">Task 1</div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="kanban-board">
+                <div class="column" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'todo')">
+                    <div class="column-header">To Do</div>
+                    <div *ngFor="let task of tasks">
+                        <app-task-item [task]="task" *ngIf="task.status === 'to do'" (dragstart)="onDragStart(task)" draggable="true"></app-task-item>
                     </div>
-                    <div class="column">
-                        <div class="column-header">In Progress</div>
-                        <!-- <div class="task">Task 1</div> -->
+                </div>
+                <div class="column" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'in progress')">
+                    <div class="column-header">In Progress</div>
+                    <div *ngFor="let task of tasks">
+                        <app-task-item [task]="task" *ngIf="task.status === 'in progress'" (dragstart)="onDragStart(task)" draggable="true"></app-task-item>
                     </div>
-                    <div class="column">
-                        <div class="column-header">Done</div>
-                        <!-- <div class="task">Task 1</div> -->
+                </div>
+                <div class="column" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'done')">
+                    <div class="column-header">Done</div>
+                    <div *ngFor="let task of tasks">
+                        <app-task-item [task]="task" *ngIf="task.status === 'done'" (dragstart)="onDragStart(task)" draggable="true"></app-task-item>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <ng-template #view>
+        
     </ng-template>
 </div>

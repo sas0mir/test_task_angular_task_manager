@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { BoardComponent } from "./board/board.component";
-import { takeUntil } from "rxjs";
 
 @Component({
   standalone: true,
@@ -18,9 +17,5 @@ export class AppComponent {
   }
   title = "Task manager"
   componentTitle = "Task manager";
-
-  async ngOnInit() {
-    
-  }
 
 }
