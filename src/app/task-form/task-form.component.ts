@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, SimpleChanges } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { DialogService, DialogRef } from '@ngneat/dialog';
 import { ITask } from '../constants';
 import { Store } from '@ngrx/store';
@@ -15,7 +16,7 @@ import { addTask, updateTask, removeTask } from '../store/task.actions';
 
 export class TaskFormComponent {
 
-  constructor(private store: Store<{tasks: any}>) {}
+  constructor(private store: Store<{tasks: any}>, private http: HttpClient) {}
 
   ref: DialogRef<ITask, boolean> = inject(DialogRef)
 
@@ -52,8 +53,27 @@ export class TaskFormComponent {
         newIndex = res.tasks.length + 1
       })
       this.store.dispatch(addTask({task: {...this.newTask, id: newIndex}}))
+      // this.http.post('https://dummyjson.com/todos/save', {
+      //   body: this.newTask,
+      //   params: {
+      //     "Content-Type": "application/json",
+      //   }
+      // }).subscribe(res => {
+      //   console.log('TASKS-API-RES->', res);
+      // })
     } else {
+      // for (const [key, value] of Object.entries(this.newTask)) {
+      //   if(!value) this.newTask[key] = this.ref.data[key] 
+      // }
       this.store.dispatch(updateTask({task: {...this.newTask, id: this.ref.data?.id}}))
+      // this.http.post('https://dummyjson.com/todos/update', {
+      //   body: this.newTask,
+      //   params: {
+      //     "Content-Type": "application/json",
+      //   }
+      // }).subscribe(res => {
+      //   console.log('TASKS-API-RES->', res);
+      // })
     }
     this.ref.close()
   }
